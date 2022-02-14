@@ -2,7 +2,6 @@ import * as ZXingBrowser from '@zxing/browser'
 
 export const initPage = (): void => {
   const drawer = document.getElementById('drawer')! as HTMLElement
-  drawer.style.display = 'none'
   const drawerCheckbox = document.getElementById('drawer-opened')! as HTMLInputElement
 
   const writer = new ZXingBrowser.BrowserQRCodeSvgWriter()
@@ -19,14 +18,19 @@ export const initPage = (): void => {
     document.getElementById('qr-modal')!.classList.remove('modal-open')
   })
 
+  const toggleDrawer = () => {
+    if (drawerCheckbox.checked) {
+      drawer.classList.add('z-10')
+    } else {
+      drawer.classList.remove('z-10')
+    }
+  }
+
   document.getElementById('drawer-btn')!.addEventListener('click', () => {
     drawerCheckbox.checked = !drawerCheckbox.checked
-    drawer.style.display = drawerCheckbox.checked ? 'grid' : 'none'
+    toggleDrawer()
   })
-
-  drawerCheckbox.addEventListener('change', () => {
-    drawer.style.display = drawerCheckbox.checked ? 'grid' : 'none'
-  })
+  drawerCheckbox.addEventListener('change', toggleDrawer)
 }
 
 export const initCamera = (facing: string = 'environment'): Promise<MediaStream> => {

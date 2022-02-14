@@ -9,25 +9,21 @@ window.addEventListener('load', async () => {
   const canvasBox = canvas.closest('div.card') as HTMLDivElement
   let stream: MediaStream | null = null
 
+  const stopCamera = (): void => {
+    if (!stream) { return }
+    stream.getTracks().forEach(track => track.stop())
+  }
+
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
+    stopCamera()
 
     const facing = document.getElementById('facing') as HTMLSelectElement
     if (!facing.value) {
       return
     }
 
-    if (preview.srcObject) {
-      preview.pause()
-      preview.currentTime = 0
-      preview.srcObject = null
-    }
-
     previewBox.style.display = 'block'
-
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop())
-    }
 
     try {
       stream = await Util.initCamera(facing.value)
@@ -51,6 +47,7 @@ window.addEventListener('load', async () => {
 
     previewBox.style.display = 'none'
     context.drawImage(preview, 0, 0, canvas.width, canvas.height)
+    stopCamera()
     canvasBox.style.display = 'block'
   })
 })
