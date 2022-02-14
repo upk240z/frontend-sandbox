@@ -11,16 +11,24 @@ window.addEventListener('load', async () => {
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
 
+    console.log('@@@ 001 @@@')
+
     const facing = document.getElementById('facing') as HTMLSelectElement
+    console.log(facing)
     if (!facing.value) {
       return
     }
 
+    console.log('@@@ 002 @@@')
+
     if (preview.srcObject) {
+      console.log('@@@ 002-1 @@@')
       preview.pause()
       preview.currentTime = 0
       preview.srcObject = null
     }
+
+    console.log('@@@ 003 @@@')
 
     previewBox.style.display = 'block'
 
