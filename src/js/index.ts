@@ -1,4 +1,5 @@
 import * as ZXingBrowser from '@zxing/browser'
+import {IScannerControls} from "@zxing/browser";
 
 const initCamera = (): Promise<MediaStream> => {
   return new Promise((resolve, reject) => {
@@ -53,24 +54,37 @@ window.addEventListener('load', async () => {
   deviceSelect.innerText = ''
   const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices()
 
+  let cameraFound = false;
   videoInputDevices.forEach(device => {
     if (!device.deviceId) { return }
     const option = document.createElement('option')
     option.setAttribute('value', device.deviceId)
     option.textContent = device.label
     deviceSelect.appendChild(option)
+    cameraFound = true
   })
 
-  showMessage('Detected Camera devices')
+  if (cameraFound) {
+    showMessage('Detected Camera devices')
+  } else {
+    showMessage('No camera found', 'alert-error')
+    return
+  }
 
-  document.getElementById('scan-btn')!.addEventListener('click', () => {
-    if (deviceSelect.value.length == 0) { return }
+  let controls: IScannerControls | null = null
+
+  document.getElementById('scan-btn')!.addEventListener('click', async () => {
+    if (controls !== null) { controls.stop() }
+
+    if (deviceSelect.value.length == 0) {
+      return
+    }
 
     resultBox.style.display = 'none'
     previewBox.style.display = 'block'
 
     const deviceId = deviceSelect.value
-    reader.decodeFromVideoDevice(
+    controls = await reader.decodeFromVideoDevice(
       deviceId,
       preview,
       (result, error, controls) => {
