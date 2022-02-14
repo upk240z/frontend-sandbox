@@ -1,7 +1,14 @@
+import * as ZXingBrowser from '@zxing/browser'
+
 export const initPage = (): void => {
   const drawer = document.getElementById('drawer')! as HTMLElement
   drawer.style.display = 'none'
   const drawerCheckbox = document.getElementById('drawer-opened')! as HTMLInputElement
+
+  const writer = new ZXingBrowser.BrowserQRCodeSvgWriter()
+  const svg = writer.write(window.location.href, 300, 300)
+  document.getElementById('qr-svg')!.appendChild(svg)
+  document.getElementById('url-text')!.textContent = window.location.href
 
   document.getElementById('open-qr-btn')!.addEventListener('click', () => {
     document.getElementById('qr-modal')!.classList.add('modal-open')

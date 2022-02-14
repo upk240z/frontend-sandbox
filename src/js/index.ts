@@ -10,11 +10,6 @@ window.addEventListener('load', async () => {
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const resultBox = document.getElementById('result-box')! as HTMLDivElement
 
-  const writer = new ZXingBrowser.BrowserQRCodeSvgWriter()
-  const svg = writer.write(window.location.href, 300, 300)
-  document.getElementById('qr-svg')!.appendChild(svg)
-  document.getElementById('url-text')!.textContent = window.location.href
-
   const stream = await Util.initCamera()
 
   deviceSelect.innerText = ''
