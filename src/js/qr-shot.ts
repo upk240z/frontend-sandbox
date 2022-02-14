@@ -11,33 +11,28 @@ window.addEventListener('load', async () => {
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
 
-    console.log('@@@ 001 @@@')
-
     const facing = document.getElementById('facing') as HTMLSelectElement
-    console.log(facing)
+    console.log(facing.value)
     if (!facing.value) {
       return
     }
 
-    console.log('@@@ 002 @@@')
-
     if (preview.srcObject) {
-      console.log('@@@ 002-1 @@@')
       preview.pause()
       preview.currentTime = 0
       preview.srcObject = null
     }
 
-    console.log('@@@ 003 @@@')
-
     previewBox.style.display = 'block'
 
-    const stream = await Util.initCamera(facing.value)
-    console.log('@@@ stream')
-    console.log(stream)
-
-    preview.srcObject = stream
-    preview.play().catch(e => console.error(e))
+    try {
+      const stream = await Util.initCamera(facing.value)
+      preview.srcObject = stream
+      preview.play().catch(e => console.error(e))
+    } catch (e) {
+      console.log('@@@ play error')
+      console.error(e)
+    }
   })
 
   document.getElementById('shot-btn')!.addEventListener('click', () => {

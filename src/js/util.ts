@@ -40,6 +40,8 @@ export const initCamera = (facing: string = 'environment'): Promise<MediaStream>
       }
     }).then(stream => {
       resolve(stream)
+    }).catch(err => {
+      reject(err)
     })
   })
 }
