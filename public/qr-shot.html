@@ -66,8 +66,8 @@
           <option value="environment">Rear</option>
           <option value="user">Front</option>
         </select>
-        <button type="submit" class="btn btn-primary" id="shot-btn">
-          Shot
+        <button type="button" class="btn btn-primary" id="start-btn">
+          Start
         </button>
       </div>
     </div>
@@ -76,7 +76,19 @@
   <div class="card card-compact border-2 p-3 mt-5 hidden">
     <div class="card-title">Preview</div>
     <div class="card-body">
-      <video id="preview"></video>
+      <div class="flex flex-col">
+        <button type="button" class="btn btn-primary mb-3" id="shot-btn">
+          Shot
+        </button>
+        <video id="preview"></video>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-compact border-2 p-3 mt-5 hidden">
+    <div class="card-title">Picture</div>
+    <div class="card-body">
+      <canvas id="shot-canvas"></canvas>
     </div>
   </div>
 </main>
