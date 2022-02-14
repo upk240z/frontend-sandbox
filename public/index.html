@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Frontend Sandbox - QRCode Scan</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+<body>
+
+<div class="navbar mb-3 shadow-lg bg-neutral text-neutral-content rounded-box">
+  <div class="flex-none">
+    <button class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+           class="inline-block w-6 h-6 stroke-current">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="flex-1 px-2 mx-2">
+      <span class="text-lg font-bold">
+        QRCode Scan
+      </span>
+  </div>
+  <div class="flex-none">
+    <button id="open-qr-btn" class="btn btn-square btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+           class="inline-block w-6 h-6 stroke-current">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+        </path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<main class="container mx-auto">
+  <div id="message-box" class="alert hidden">
+    <div class="flex-1">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <label></label>
+    </div>
+  </div>
+
+  <div class="card card-compact border-2 p-3 mt-5">
+    <div class="card-title">Choose camera</div>
+    <div class="card-body">
+      <div class="flex flex-row">
+        <select id="device-id" name="device_id" class="select select-bordered select-primary flex-grow mr-3">
+          <option disabled="disabled" selected="selected">Detecting devices...</option>
+        </select>
+        <button type="submit" class="btn btn-primary" id="scan-btn">
+          Scan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-box" class="card card-compact border-2 p-3 mt-5 hidden">
+    <div class="card-title">Detected</div>
+    <div class="card-body">
+      <pre class="p-3 bg-green-200 rounded" id="json-text"></pre>
+    </div>
+  </div>
+
+  <div class="card card-compact border-2 p-3 mt-5 hidden">
+    <div class="card-title">Preview</div>
+    <div class="card-body">
+      <video id="preview"></video>
+    </div>
+  </div>
+</main>
+
+<div id="qr-modal" class="modal">
+  <div class="modal-box">
+    <div class="flex flex-row justify-center">
+      <div class="flex flex-col justify-center">
+        <div id="url-text">http://xxxx/xxx</div>
+        <div id="qr-svg"></div>
+      </div>
+    </div>
+    <div class="modal-action">
+      <a href="#" class="btn" id="close-qr-modal-btn">Close</a>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/index.js"></script>
+</body>
+</html>
