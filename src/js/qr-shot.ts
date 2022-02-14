@@ -7,12 +7,12 @@ window.addEventListener('load', async () => {
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const canvas = document.getElementById('shot-canvas') as HTMLCanvasElement
   const canvasBox = canvas.closest('div.card') as HTMLDivElement
+  let stream: MediaStream | null = null
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
 
     const facing = document.getElementById('facing') as HTMLSelectElement
-    console.log(facing.value)
     if (!facing.value) {
       return
     }
@@ -25,8 +25,12 @@ window.addEventListener('load', async () => {
 
     previewBox.style.display = 'block'
 
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop())
+    }
+
     try {
-      const stream = await Util.initCamera(facing.value)
+      stream = await Util.initCamera(facing.value)
       preview.srcObject = stream
       preview.play().catch(e => console.error(e))
     } catch (e) {
