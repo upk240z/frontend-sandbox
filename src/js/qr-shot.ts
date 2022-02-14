@@ -16,15 +16,18 @@ window.addEventListener('load', async () => {
       return
     }
 
-    previewBox.style.display = 'block'
-
-    const stream = await Util.initCamera(facing.value)
-
     if (preview.srcObject) {
       preview.pause()
       preview.currentTime = 0
       preview.srcObject = null
     }
+
+    previewBox.style.display = 'block'
+
+    const stream = await Util.initCamera(facing.value)
+    console.log('@@@ stream')
+    console.log(stream)
+
     preview.srcObject = stream
     preview.play().catch(e => console.error(e))
   })
