@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-  <title>Frontend Sandbox - QRCode Scan</title>
+  <title>Frontend Sandbox - QRCode Shot</title>
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
   </div>
   <div class="flex-1 px-2 mx-2">
       <span class="text-lg font-bold">
-        QRCode Scan
+        QRCode Shot
       </span>
   </div>
   <div class="flex-none">
@@ -61,20 +61,15 @@
     <div class="card-title">Choose camera</div>
     <div class="card-body">
       <div class="flex flex-row">
-        <select id="device-id" name="device_id" class="select select-bordered select-primary flex-grow mr-3">
-          <option disabled="disabled" selected="selected">Detecting devices...</option>
+        <select id="facing" name="facing" class="select select-bordered select-primary flex-grow mr-3">
+          <option value="">Choose device</option>
+          <option value="environment">Rear</option>
+          <option value="user">Front</option>
         </select>
-        <button type="submit" class="btn btn-primary" id="scan-btn">
-          Scan
+        <button type="submit" class="btn btn-primary" id="shot-btn">
+          Shot
         </button>
       </div>
-    </div>
-  </div>
-
-  <div id="result-box" class="card card-compact border-2 p-3 mt-5 hidden">
-    <div class="card-title">Detected</div>
-    <div class="card-body">
-      <pre class="p-3 bg-green-200 text-black rounded" id="json-text"></pre>
     </div>
   </div>
 
@@ -100,7 +95,7 @@
   </div>
 </div>
 
-<script src="/assets/js/index.js"></script>
+<script src="/assets/js/qr-shot.js"></script>
 
 </body>
 </html>

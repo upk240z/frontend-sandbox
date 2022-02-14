@@ -11,6 +11,10 @@ const config: Configuration = {
       import: './js/index.ts',
       filename: `index.js`,
     },
+    'qr-shot': {
+      import: './js/qr-shot.ts',
+      filename: `qr-shot.js`,
+    },
   },
   module: {
     rules: [
