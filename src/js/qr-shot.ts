@@ -1,4 +1,5 @@
-import * as Util from "./util";
+import * as Util from "./util"
+import axios from 'axios'
 
 window.addEventListener('load', async () => {
   Util.initPage()
@@ -7,6 +8,8 @@ window.addEventListener('load', async () => {
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const canvas = document.getElementById('shot-canvas') as HTMLCanvasElement
   const canvasBox = canvas.closest('div.card') as HTMLDivElement
+  const jsonText = document.getElementById('json-text') as HTMLPreElement
+  const jsonBox = jsonText.closest('div.card') as HTMLDivElement
   let stream: MediaStream | null = null
 
   const stopCamera = (): void => {
@@ -16,6 +19,7 @@ window.addEventListener('load', async () => {
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
+    jsonBox.style.display = 'none'
     stopCamera()
 
     const facing = document.getElementById('facing') as HTMLSelectElement
@@ -35,7 +39,7 @@ window.addEventListener('load', async () => {
     }
   })
 
-  document.getElementById('shot-btn')!.addEventListener('click', () => {
+  document.getElementById('shot-btn')!.addEventListener('click', async () => {
     canvas.width = preview.clientWidth
     canvas.height = preview.clientHeight
 
@@ -49,5 +53,29 @@ window.addEventListener('load', async () => {
     context.drawImage(preview, 0, 0, canvas.width, canvas.height)
     stopCamera()
     canvasBox.style.display = 'block'
+
+    const dataURL = canvas.toDataURL()
+    const matches = /data:(.+?);base64,(.+)$/.exec(dataURL)
+    if (!matches || matches.length < 2) {
+      console.log('DataURL error')
+      console.log(dataURL)
+      return
+    }
+
+    const postUrl = 'http://0e12-219-110-64-174.ngrok.io/qrcode'
+
+    console.log('send to ' + postUrl)
+
+    const res = await axios.post(postUrl, {
+      'type': matches[1],
+      'base64': matches[2]
+    }, {
+      withCredentials: true,
+    })
+
+    console.log(res.data)
+
+    jsonText.textContent = JSON.stringify(res.data, null, 2)
+    jsonBox.style.display = 'block'
   })
 })
