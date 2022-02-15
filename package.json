@@ -21,7 +21,6 @@
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
     "daisyui": "^2.0.0-next.2",
-    "js-base64": "^3.7.2",
     "nodemon": "^2.0.15",
     "postcss": "^8.4.6",
     "postcss-cli": "^9.1.0",

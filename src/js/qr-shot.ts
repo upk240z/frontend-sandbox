@@ -62,7 +62,7 @@ window.addEventListener('load', async () => {
       return
     }
 
-    const postUrl = 'https://0e12-219-110-64-174.ngrok.io/qrcode'
+    const postUrl = 'http://localhost:3777/qrcode'
 
     console.log('send to ' + postUrl)
 
