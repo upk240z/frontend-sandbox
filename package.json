@@ -17,6 +17,7 @@
     "ts-node": "*"
   },
   "devDependencies": {
+    "@netlify/functions": "^1.0.0",
     "@zxing/browser": "^0.1.1",
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
