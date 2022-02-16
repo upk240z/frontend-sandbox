@@ -17,6 +17,13 @@ window.addEventListener('load', async () => {
     stream.getTracks().forEach(track => track.stop())
   }
 
+  const onResize = (): void => {
+    document.getElementById('w-text')!.textContent = preview.clientWidth.toString()
+    document.getElementById('h-text')!.textContent = preview.clientHeight.toString()
+  }
+
+  window.addEventListener('resize', onResize)
+
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     canvasBox.style.display = 'none'
     jsonBox.style.display = 'none'
@@ -33,6 +40,7 @@ window.addEventListener('load', async () => {
       stream = await Util.initCamera(facing.value)
       preview.srcObject = stream
       preview.play().catch(e => console.error(e))
+      onResize()
     } catch (e) {
       console.log('@@@ play error')
       console.error(e)
@@ -63,6 +71,7 @@ window.addEventListener('load', async () => {
     }
 
     const postUrl = 'https://api.usappy.com/qrcode'
+    // const postUrl = 'http://localhost:3777/qrcode'
     const postParams = {
       'type': matches[1],
       'base64': matches[2]
