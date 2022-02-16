@@ -62,18 +62,17 @@ window.addEventListener('load', async () => {
       return
     }
 
-    const postUrl = 'http://localhost:3777/qrcode'
-
-    console.log('send to ' + postUrl)
-
-    const res = await axios.post(postUrl, {
+    const postUrl = 'https://api.usappy.com/qrcode'
+    const postParams = {
       'type': matches[1],
       'base64': matches[2]
-    }, {
+    }
+    console.log('send to ' + postUrl)
+    console.log(postParams['type'])
+
+    const res = await axios.post(postUrl, postParams, {
       withCredentials: true,
     })
-
-    console.log(res.data)
 
     jsonText.textContent = JSON.stringify(res.data, null, 2)
     jsonBox.style.display = 'block'
