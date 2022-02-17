@@ -33,16 +33,26 @@ export const initPage = (): void => {
   drawerCheckbox.addEventListener('change', toggleDrawer)
 }
 
-export const initCamera = (facing: string = 'environment'): Promise<MediaStream> => {
+export type CameraParams = {
+  facing: string,
+  width?: number,
+  height?: number,
+}
+
+export const initCamera = (params: CameraParams = {
+  facing: 'user',
+  width: undefined,
+  height: undefined
+}): Promise<MediaStream> => {
   return new Promise((resolve, reject) => {
     navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
         facingMode: {
-          exact: facing
+          exact: params.facing ? params.facing : 'user'
         },
-        width: 800,
-        height: 800
+        width: params.width ? params.width : 1200,
+        height: params.height ? params.height : 400,
       }
     }).then(stream => {
       resolve(stream)

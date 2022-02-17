@@ -37,7 +37,7 @@ window.addEventListener('load', async () => {
     previewBox.style.display = 'block'
 
     try {
-      stream = await Util.initCamera(facing.value)
+      stream = await Util.initCamera({facing: facing.value})
       preview.srcObject = stream
       preview.play().catch(e => console.error(e))
       onResize()
