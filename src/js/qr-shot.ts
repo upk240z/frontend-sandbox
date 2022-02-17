@@ -75,6 +75,6 @@ window.addEventListener('load', async () => {
       resultImg.setAttribute('src', canvas.toDataURL())
       resultBox.style.display = 'block'
       chooseBlock.style.display = 'block'
-    }, 'image/jpeg', 0.8)
+    }, 'image/jpeg', 1.0)
   })
 })
