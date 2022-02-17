@@ -4,6 +4,7 @@ import axios from 'axios'
 window.addEventListener('load', async () => {
   Util.initPage()
 
+  const chooseBlock = document.getElementById('choose-block')! as HTMLDivElement
   const preview = document.getElementById('preview')! as HTMLVideoElement
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const canvas = document.getElementById('shot-canvas') as HTMLCanvasElement
@@ -25,6 +26,7 @@ window.addEventListener('load', async () => {
   window.addEventListener('resize', onResize)
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
+    chooseBlock.style.display = 'none'
     resultBox.style.display = 'none'
     stopCamera()
 
@@ -72,6 +74,7 @@ window.addEventListener('load', async () => {
       resultText.textContent = JSON.stringify(res.data, null, 2)
       resultImg.setAttribute('src', canvas.toDataURL())
       resultBox.style.display = 'block'
+      chooseBlock.style.display = 'block'
     }, 'image/jpeg', 0.8)
   })
 })

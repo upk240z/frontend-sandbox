@@ -9,8 +9,8 @@ const config: Configuration = {
   },
   entry: {
     index: {
-      import: './js/index.ts',
-      filename: `index.js`,
+      import: './js/qr-scan.ts',
+      filename: `qr-scan.js`,
     },
     'qr-shot': {
       import: './js/qr-shot.ts',

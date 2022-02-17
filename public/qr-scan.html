@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-  <title>Frontend Sandbox - QRCode Shot</title>
+  <title>Frontend Sandbox - QRCode(Video scan)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        crossOrigin="anonymous"/>
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
 <body>
@@ -19,7 +21,7 @@
   </div>
   <div class="flex-1 px-2 mx-2">
       <span class="text-lg font-bold">
-        QRCode Shot
+        QRCode(Video scan)
       </span>
   </div>
   <div class="flex-none">
@@ -38,12 +40,8 @@
 <div id="drawer" class="drawer-side fixed w-full">
   <label for="drawer-opened" class="drawer-overlay"></label>
   <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content border-2">
-    <li>
-      <a href="/">QRCode Scan</a>
-    </li>
-    <li>
-      <a href="/qr-shot.html">QRCode Shot</a>
-    </li>
+    <li><a href="/">QRCode(Picture)</a></li>
+    <li><a href="/qr-scan.html">QRCode(Video scan)</a></li>
   </ul>
 </div>
 
@@ -61,51 +59,31 @@
     <div class="card-title">Choose camera</div>
     <div class="card-body">
       <div class="flex flex-row">
-        <select id="facing" name="facing" class="select select-bordered select-primary flex-grow mr-3">
-          <option value="">Choose device</option>
-          <option value="environment">Rear</option>
-          <option value="user">Front</option>
+        <select id="device-id" name="device_id" class="select select-bordered select-primary flex-grow mr-3">
+          <option disabled="disabled" selected="selected">Detecting devices...</option>
         </select>
-        <button type="button" class="btn btn-primary" id="start-btn">
-          Start
+        <button type="submit" class="btn btn-primary" id="scan-btn">
+          <span class="material-icons">
+            videocam
+          </span>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="card card-compact border-2 p-3 mt-5 hidden">
-    <div class="card-title">
-      Preview
-      (<span id="w-text"></span> x <span id="h-text"></span>)
-    </div>
+  <div id="result-box" class="card card-compact border-2 p-3 mt-5 hidden">
+    <div class="card-title">Detected</div>
     <div class="card-body">
-      <div class="flex justify-center">
-        <div class="flex flex-col">
-          <video id="preview" width="1200" height="1200"></video>
-          <button type="button" class="btn btn-primary mt-3" id="shot-btn">
-            Shot
-          </button>
-        </div>
-      </div>
+      <pre class="p-3 bg-green-200 text-black rounded" id="json-text"></pre>
     </div>
   </div>
 
   <div class="card card-compact border-2 p-3 mt-5 hidden">
-    <div class="card-title">Result</div>
+    <div class="card-title">Camera</div>
     <div class="card-body">
-      <div class="flex flex-col">
-        <h4>Scan result</h4>
-        <hr class="my-2">
-        <pre class="mb-3 p-3 bg-green-200 text-black rounded" id="result-text"></pre>
-        <h4>Target image</h4>
-        <hr class="my-2">
-        <div class="flex justify-center">
-          <img id="result-img" src="" alt="picture" class="mt-1">
-        </div>
-      </div>
+      <video id="preview"></video>
     </div>
   </div>
-
 </main>
 
 <div id="qr-modal" class="modal">
@@ -122,11 +100,7 @@
   </div>
 </div>
 
-<div class="hidden">
-  <canvas id="shot-canvas"></canvas>
-</div>
-
-<script src="/assets/js/qr-shot.js"></script>
+<script src="/assets/js/qr-scan.js"></script>
 
 </body>
 </html>
