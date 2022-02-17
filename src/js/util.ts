@@ -52,7 +52,7 @@ export const initCamera = (params: CameraParams = {
           exact: params.facing ? params.facing : 'user'
         },
         width: params.width ? params.width : 1200,
-        height: params.height ? params.height : 400,
+        height: params.height ? params.height : 1200,
       }
     }).then(stream => {
       resolve(stream)
