@@ -18,8 +18,8 @@ window.addEventListener('load', async () => {
   }
 
   const onResize = (): void => {
-    document.getElementById('w-text')!.textContent = preview.clientWidth.toString()
-    document.getElementById('h-text')!.textContent = preview.clientHeight.toString()
+    document.getElementById('w-text')!.textContent = preview.width.toString()
+    document.getElementById('h-text')!.textContent = preview.height.toString()
   }
 
   window.addEventListener('resize', onResize)
@@ -48,8 +48,8 @@ window.addEventListener('load', async () => {
   })
 
   document.getElementById('shot-btn')!.addEventListener('click', async () => {
-    canvas.width = preview.clientWidth
-    canvas.height = preview.clientHeight
+    canvas.width = preview.width
+    canvas.height = preview.height
 
     const context = canvas.getContext('2d')
     if (!context) {
@@ -62,28 +62,17 @@ window.addEventListener('load', async () => {
     stopCamera()
     canvasBox.style.display = 'block'
 
-    const dataURL = canvas.toDataURL()
-    const matches = /data:(.+?);base64,(.+)$/.exec(dataURL)
-    if (!matches || matches.length < 2) {
-      console.log('DataURL error')
-      console.log(dataURL)
-      return
-    }
+    canvas.toBlob(async blob => {
+      const postUrl = 'https://api.usappy.com/qr-img'
+      // const postUrl = 'http://localhost:3777/qr-img'
+      console.log('send to ' + postUrl)
+      const res = await axios.post(postUrl, blob, {
+        headers: {'Content-Type': 'image/jpeg'},
+        withCredentials: true,
+      })
 
-    const postUrl = 'https://api.usappy.com/qrcode'
-    // const postUrl = 'http://localhost:3777/qrcode'
-    const postParams = {
-      'type': matches[1],
-      'base64': matches[2]
-    }
-    console.log('send to ' + postUrl)
-    console.log(postParams['type'])
-
-    const res = await axios.post(postUrl, postParams, {
-      withCredentials: true,
-    })
-
-    jsonText.textContent = JSON.stringify(res.data, null, 2)
-    jsonBox.style.display = 'block'
+      jsonText.textContent = JSON.stringify(res.data, null, 2)
+      jsonBox.style.display = 'block'
+    }, 'image/jpeg', 0.8)
   })
 })

@@ -40,7 +40,9 @@ export const initCamera = (facing: string = 'environment'): Promise<MediaStream>
       video: {
         facingMode: {
           exact: facing
-        }
+        },
+        width: 800,
+        height: 800
       }
     }).then(stream => {
       resolve(stream)
