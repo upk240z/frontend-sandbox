@@ -91,18 +91,21 @@
   </div>
 
   <div class="card card-compact border-2 p-3 mt-5 hidden">
-    <div class="card-title">Decode Result</div>
+    <div class="card-title">Result</div>
     <div class="card-body">
-      <pre class="p-3 bg-green-200 text-black rounded" id="json-text"></pre>
+      <div class="flex flex-col">
+        <h4>Scan result</h4>
+        <hr class="my-2">
+        <pre class="mb-3 p-3 bg-green-200 text-black rounded" id="result-text"></pre>
+        <h4>Target image</h4>
+        <hr class="my-2">
+        <div class="flex justify-center">
+          <img id="result-img" src="" alt="picture" class="mt-1">
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="card card-compact border-2 p-3 mt-5 hidden">
-    <div class="card-title">Picture</div>
-    <div class="card-body">
-      <canvas id="shot-canvas" width="1200" height="1200"></canvas>
-    </div>
-  </div>
 </main>
 
 <div id="qr-modal" class="modal">
@@ -117,6 +120,10 @@
       <a href="#" class="btn" id="close-qr-modal-btn">Close</a>
     </div>
   </div>
+</div>
+
+<div class="hidden">
+  <canvas id="shot-canvas"></canvas>
 </div>
 
 <script src="/assets/js/qr-shot.js"></script>

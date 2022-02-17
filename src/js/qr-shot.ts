@@ -7,9 +7,9 @@ window.addEventListener('load', async () => {
   const preview = document.getElementById('preview')! as HTMLVideoElement
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const canvas = document.getElementById('shot-canvas') as HTMLCanvasElement
-  const canvasBox = canvas.closest('div.card') as HTMLDivElement
-  const jsonText = document.getElementById('json-text') as HTMLPreElement
-  const jsonBox = jsonText.closest('div.card') as HTMLDivElement
+  const resultText = document.getElementById('result-text') as HTMLPreElement
+  const resultBox = resultText.closest('div.card') as HTMLDivElement
+  const resultImg = document.getElementById('result-img') as HTMLImageElement
   let stream: MediaStream | null = null
 
   const stopCamera = (): void => {
@@ -25,8 +25,7 @@ window.addEventListener('load', async () => {
   window.addEventListener('resize', onResize)
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
-    canvasBox.style.display = 'none'
-    jsonBox.style.display = 'none'
+    resultBox.style.display = 'none'
     stopCamera()
 
     const facing = document.getElementById('facing') as HTMLSelectElement
@@ -60,7 +59,6 @@ window.addEventListener('load', async () => {
     previewBox.style.display = 'none'
     context.drawImage(preview, 0, 0, canvas.width, canvas.height)
     stopCamera()
-    canvasBox.style.display = 'block'
 
     canvas.toBlob(async blob => {
       const postUrl = 'https://api.usappy.com/qr-img'
@@ -71,8 +69,9 @@ window.addEventListener('load', async () => {
         withCredentials: true,
       })
 
-      jsonText.textContent = JSON.stringify(res.data, null, 2)
-      jsonBox.style.display = 'block'
+      resultText.textContent = JSON.stringify(res.data, null, 2)
+      resultImg.setAttribute('src', canvas.toDataURL())
+      resultBox.style.display = 'block'
     }, 'image/jpeg', 0.8)
   })
 })
