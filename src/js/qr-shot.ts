@@ -76,8 +76,10 @@ window.addEventListener('load', async () => {
       const result = res.data
       if (result.result == 'success') {
         Util.showMessage('Success', 'alert-success')
-      } else {
-        Util.showMessage(result.message, 'alert-' + result.result)
+      } else if (result.result == 'error') {
+        Util.showMessage(result.message, 'alert-error')
+      } else if (result.result == 'warning') {
+        Util.showMessage(result.message, 'alert-warning')
       }
 
       resultText.textContent = JSON.stringify(result, null, 2)
