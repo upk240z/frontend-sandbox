@@ -73,3 +73,8 @@ export const showMessage = (text: string, className: string = 'alert-info'): voi
   })
   box.style.display = 'flex'
 }
+
+export const clearMessage = (): void => {
+  const box = document.getElementById('message-box') as HTMLDivElement
+  box.style.display = 'none'
+}

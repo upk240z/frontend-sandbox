@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-  <title>Frontend Sandbox - QRCode(Picture)</title>
+  <title>Frontend Sandbox - 車検証QRコードリーダー</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"
         crossOrigin="anonymous"/>
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
@@ -21,7 +21,7 @@
   </div>
   <div class="flex-1 px-2 mx-2">
       <span class="text-lg font-bold">
-        QRCode(Picture)
+        車検証QRコードリーダー
       </span>
   </div>
   <div class="flex-none">
@@ -40,8 +40,8 @@
 <div id="drawer" class="drawer-side fixed w-full">
   <label for="drawer-opened" class="drawer-overlay"></label>
   <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content border-2">
-    <li><a href="/">QRCode(Picture)</a></li>
-    <li><a href="/qr-scan.html">QRCode(Video scan)</a></li>
+    <li><a href="/">車検証QRコードリーダー</a></li>
+    <li><a href="/qr-scan.html">QRCode scan</a></li>
   </ul>
 </div>
 
@@ -82,11 +82,19 @@
       <div class="flex justify-center">
         <div class="flex flex-col">
           <video id="preview" width="1200" height="1200"></video>
-          <button type="button" class="btn btn-primary mt-3" id="shot-btn">
+          <div class="flex flex-row mt-5">
+            <button type="button" class="btn btn-warning flex-grow" id="cancel-btn">
+            <span class="material-icons">
+              cancel
+            </span>
+            </button>
+            <div class="p-3"></div>
+            <button type="button" class="btn btn-primary flex-grow" id="shot-btn">
             <span class="material-icons">
               photo_camera
             </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -95,14 +103,18 @@
   <div class="card card-compact border-2 p-3 mt-5 hidden">
     <div class="card-title">Result</div>
     <div class="card-body">
-      <div class="flex flex-col">
-        <h4>Scan result</h4>
-        <hr class="my-2">
-        <pre class="mb-3 p-3 bg-green-200 text-black rounded" id="result-text"></pre>
-        <h4>Scan image</h4>
-        <hr class="my-2">
-        <div class="flex justify-center">
-          <img id="result-img" src="" alt="picture" class="mt-1">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h4>Scan result</h4>
+          <hr class="my-2">
+          <pre class="mb-3 p-3 bg-green-200 text-black rounded" id="result-text"></pre>
+        </div>
+        <div>
+          <h4>Scan image</h4>
+          <hr class="my-2">
+          <div class="flex justify-center">
+            <img id="result-img" src="" alt="picture" class="mt-1">
+          </div>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ window.addEventListener('load', async () => {
   window.addEventListener('resize', onResize)
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
+    Util.clearMessage()
     chooseBlock.style.display = 'none'
     resultBox.style.display = 'none'
     stopCamera()
@@ -49,6 +50,7 @@ window.addEventListener('load', async () => {
   })
 
   document.getElementById('shot-btn')!.addEventListener('click', async () => {
+    Util.clearMessage()
     canvas.width = preview.width
     canvas.height = preview.height
 
@@ -71,10 +73,23 @@ window.addEventListener('load', async () => {
         withCredentials: true,
       })
 
-      resultText.textContent = JSON.stringify(res.data, null, 2)
+      const result = res.data
+      if (result.result == 'success') {
+        Util.showMessage('Success', 'alert-success')
+      } else {
+        Util.showMessage(result.message, 'alert-' + result.result)
+      }
+
+      resultText.textContent = JSON.stringify(result, null, 2)
       resultImg.setAttribute('src', canvas.toDataURL())
       resultBox.style.display = 'block'
       chooseBlock.style.display = 'block'
     }, 'image/jpeg', 1.0)
+  })
+
+  document.getElementById('cancel-btn')!.addEventListener('click', async () => {
+    Util.clearMessage()
+    previewBox.style.display = 'none'
+    chooseBlock.style.display = 'block'
   })
 })
