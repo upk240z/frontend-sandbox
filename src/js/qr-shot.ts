@@ -26,14 +26,19 @@ window.addEventListener('load', async () => {
 
   document.getElementById('start-btn')!.addEventListener('click', async () => {
     Util.clearMessage()
-    chooseBlock.style.display = 'none'
-    resultBox.style.display = 'none'
     stopCamera()
 
     const facing = document.getElementById('facing') as HTMLSelectElement
     if (!facing.value) {
       return
     }
+
+    chooseBlock.style.display = 'none'
+    resultBox.style.display = 'none'
+    Util.loading(true,'Starting ...')
+    setTimeout(() => {
+      Util.loading(false)
+    }, 1500)
 
     previewBox.style.display = 'block'
 
@@ -45,6 +50,7 @@ window.addEventListener('load', async () => {
     } catch (e) {
       console.log('@@@ play error')
       console.error(e)
+      Util.loading(false)
     }
   })
 
@@ -63,6 +69,8 @@ window.addEventListener('load', async () => {
       console.error('2d context error')
       return
     }
+
+    Util.loading(true, 'Scanning image ...')
 
     previewBox.style.display = 'none'
     context.drawImage(preview, 0, 0, canvas.width, canvas.height)
@@ -101,6 +109,7 @@ window.addEventListener('load', async () => {
       resultImg.setAttribute('src', canvas.toDataURL())
       resultBox.style.display = 'block'
       chooseBlock.style.display = 'block'
+      Util.loading(false)
     }, 'image/jpeg', 1.0)
   })
 

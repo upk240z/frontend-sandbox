@@ -86,3 +86,9 @@ export const clearMessage = (): void => {
   const box = document.getElementById('message-box') as HTMLDivElement
   box.style.display = 'none'
 }
+
+export const loading = (visible: boolean = true, msg: string = '') => {
+  const element = document.getElementById('loading') as HTMLDivElement
+  element.textContent = msg
+  element.style.display = visible ? 'block' : 'none'
+}
