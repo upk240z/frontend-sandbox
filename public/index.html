@@ -64,7 +64,7 @@
           <option value="environment">Rear</option>
           <option value="user">Front</option>
         </select>
-        <button type="button" class="btn btn-primary" id="start-btn">
+        <button type="button" class="btn btn-accent" id="start-btn">
         <span class="material-icons">
             play_arrow
         </span>
@@ -100,20 +100,52 @@
     </div>
   </div>
 
-  <div class="card card-compact border-2 p-3 mt-5 hidden">
+  <div id="result-box" class="card card-compact border-2 p-3 mt-5 hidden">
     <div class="card-title">Result</div>
     <div class="card-body">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h4>Scan result</h4>
-          <hr class="my-2">
-          <pre class="mb-3 p-3 bg-green-200 text-black rounded" id="result-text"></pre>
+          <h4>Text</h4>
+          <div class="divider"></div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">型式指定番号</span>
+              </label>
+              <input type="text" class="input input-bordered w-full" value="" name="kata">
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">類別区分番号</span>
+              </label>
+              <input type="text" class="input input-bordered w-full" value="" name="rui">
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">車検満了日</span>
+              </label>
+              <input type="text" class="input input-bordered w-full" value="" name="fin_date">
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">初度登録年月</span>
+              </label>
+              <input type="text" class="input input-bordered w-full" value="" name="first_month">
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">車番</span>
+              </label>
+              <input type="text" class="input input-bordered w-full" value="" name="plate">
+            </div>
+          </div>
         </div>
         <div>
-          <h4>Scan image</h4>
-          <hr class="my-2">
+          <h4>Image</h4>
+          <div class="divider"></div>
           <div class="flex justify-center">
-            <img id="result-img" src="" alt="picture" class="mt-1">
+            <img id="result-img" src="" alt="picture" class="rounded-md">
           </div>
         </div>
       </div>

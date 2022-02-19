@@ -8,8 +8,7 @@ window.addEventListener('load', async () => {
   const preview = document.getElementById('preview')! as HTMLVideoElement
   const previewBox = preview.closest('div.card') as HTMLDivElement
   const canvas = document.getElementById('shot-canvas') as HTMLCanvasElement
-  const resultText = document.getElementById('result-text') as HTMLPreElement
-  const resultBox = resultText.closest('div.card') as HTMLDivElement
+  const resultBox = document.getElementById('result-box') as HTMLDivElement
   const resultImg = document.getElementById('result-img') as HTMLImageElement
   let stream: MediaStream | null = null
 
@@ -49,6 +48,11 @@ window.addEventListener('load', async () => {
     }
   })
 
+  const setResultText = (name: string, value: string | undefined): void => {
+    const input = resultBox.querySelector(`input[name=${name}]`) as HTMLInputElement
+    input.value =  value ? value : ''
+  }
+
   document.getElementById('shot-btn')!.addEventListener('click', async () => {
     Util.clearMessage()
     canvas.width = preview.width
@@ -76,7 +80,24 @@ window.addEventListener('load', async () => {
       const result = res.data
       Util.showMessage(result.message, Util.MESSAGE_CLASSES[result.result])
 
-      resultText.textContent = JSON.stringify(result, null, 2)
+      const info: any = result['info']
+      setResultText('kata', info['kata'])
+      setResultText('rui', info['rui'])
+      setResultText('fin_date', info['inspection-fin-date'])
+      setResultText('first_month', info['first-month'])
+      const plate = info['plate']
+      if (plate) {
+        setResultText(
+          'plate',
+          plate['area'] + ' ' +
+          plate['class'] + ' ' +
+          plate['hira'] + ' ' +
+          plate['number']
+        )
+      } else {
+        setResultText('plate', '')
+      }
+
       resultImg.setAttribute('src', canvas.toDataURL())
       resultBox.style.display = 'block'
       chooseBlock.style.display = 'block'
