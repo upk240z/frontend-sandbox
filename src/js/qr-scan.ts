@@ -26,9 +26,9 @@ window.addEventListener('load', async () => {
   })
 
   if (cameraFound) {
-    // Util.showMessage('Detected Camera devices')
+    Util.showMessage('Detected Camera devices', Util.MESSAGE_CLASSES.success)
   } else {
-    Util.showMessage('No camera found', 'alert-error')
+    Util.showMessage('No camera found', Util.MESSAGE_CLASSES.error)
     return
   }
 
@@ -51,7 +51,7 @@ window.addEventListener('load', async () => {
       (result, error, controls) => {
         if (error) { return }
 
-        Util.showMessage('Detected QRCode')
+        Util.showMessage('Detected QRCode', Util.MESSAGE_CLASSES.success)
         document.getElementById('json-text')!.textContent = JSON.stringify(result, null, 2)
         previewBox.style.display = 'none'
         resultBox.style.display = 'block'

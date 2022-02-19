@@ -74,13 +74,7 @@ window.addEventListener('load', async () => {
       })
 
       const result = res.data
-      if (result.result == 'success') {
-        Util.showMessage('Success', 'alert-success')
-      } else if (result.result == 'error') {
-        Util.showMessage(result.message, 'alert-error')
-      } else if (result.result == 'warning') {
-        Util.showMessage(result.message, 'alert-warning')
-      }
+      Util.showMessage(result.message, Util.MESSAGE_CLASSES[result.result])
 
       resultText.textContent = JSON.stringify(result, null, 2)
       resultImg.setAttribute('src', canvas.toDataURL())

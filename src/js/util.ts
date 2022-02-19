@@ -62,10 +62,18 @@ export const initCamera = (params: CameraParams = {
   })
 }
 
-export const showMessage = (text: string, className: string = 'alert-info'): void => {
+export const MESSAGE_CLASSES: {[index: string]: string} = {
+  success: 'alert-success',
+  info: 'alert-info',
+  error: 'alert-error',
+  warning: 'alert-warning',
+}
+
+export const showMessage = (text: string, className: string = MESSAGE_CLASSES.info): void => {
   const box = document.getElementById('message-box') as HTMLDivElement
-  box.classList.remove('alert-error')
-  box.classList.remove('alert-info')
+  Object.values(MESSAGE_CLASSES).forEach((cls: string) => {
+    box.classList.remove(cls)
+  })
   box.classList.add(className)
   if (!box) { return }
   Array.from(box.getElementsByTagName('label')).forEach(el => {
