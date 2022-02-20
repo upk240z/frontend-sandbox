@@ -88,7 +88,8 @@ export const clearMessage = (): void => {
 }
 
 export const loading = (visible: boolean = true, msg: string = '') => {
-  const element = document.getElementById('loading') as HTMLDivElement
-  element.textContent = msg
-  element.style.display = visible ? 'block' : 'none'
+  const box = document.getElementById('loading') as HTMLDivElement
+  const text = document.getElementById('loading-text') as HTMLSpanElement
+  text.textContent = msg
+  box.style.display = visible ? 'block' : 'none'
 }

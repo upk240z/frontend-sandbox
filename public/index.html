@@ -173,8 +173,16 @@
 </div>
 
 <div id="loading" class="
-  hidden fixed top-1/2 left-1/4 p-5 border-2 w-1/2 bg-cyan-500 text-white text-center shadow-lg rounded-xl
-">Now Loading...</div>
+  animate-pulse hidden
+  fixed top-1/2 left-1/4 p-5 border-2 w-1/2 bg-cyan-700 text-white text-center shadow-lg rounded-xl
+">
+  <div class="flex justify-center">
+    <span class="material-icons animate-spin">
+        refresh
+    </span>
+    <span class="ml-1" id="loading-text">Now Loading...</span>
+  </div>
+</div>
 
 <script src="/assets/js/qr-shot.js"></script>
 
