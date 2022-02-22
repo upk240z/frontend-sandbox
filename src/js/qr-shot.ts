@@ -1,5 +1,6 @@
 import * as Util from "./util"
 import axios from 'axios'
+import Config  from './config'
 
 window.addEventListener('load', async () => {
   Util.initPage()
@@ -77,15 +78,23 @@ window.addEventListener('load', async () => {
     stopCamera()
 
     canvas.toBlob(async blob => {
-      const postUrl = 'https://api.usappy.com/qr-img'
-      // const postUrl = 'http://localhost:3777/qr-img'
-      console.log('send to ' + postUrl)
-      const res = await axios.post(postUrl, blob, {
-        headers: {'Content-Type': 'image/jpeg'},
-        withCredentials: true,
-      })
+      const postUrl = Config.get('api-base') + 'qr-img'
 
-      const result = res.data
+      let result = null
+
+      try {
+        const res = await axios.post(postUrl, blob, {
+          headers: {'Content-Type': 'image/jpeg'},
+          withCredentials: true,
+        })
+        result = res.data
+      } catch (e: any) {
+        Util.showMessage(e, Util.MESSAGE_CLASSES['error'])
+        chooseBlock.style.display = 'block'
+        Util.loading(false)
+        return
+      }
+
       Util.showMessage(result.message, Util.MESSAGE_CLASSES[result.result])
 
       const info: any = result['info']
