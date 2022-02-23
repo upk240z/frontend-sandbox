@@ -93,7 +93,3 @@ export const loading = (visible: boolean = true, msg: string = '') => {
   text.textContent = msg
   box.style.display = visible ? 'block' : 'none'
 }
-
-export const isProduction = (): boolean => {
-  return !/^localhost/.test(window.location.host)
-}
