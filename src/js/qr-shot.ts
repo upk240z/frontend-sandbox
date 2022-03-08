@@ -97,6 +97,12 @@ window.addEventListener('load', async () => {
 
       Util.showMessage(result.message, Util.MESSAGE_CLASSES[result.result])
 
+      if (result.result == 'error' || result['info'] == undefined) {
+        chooseBlock.style.display = 'block'
+        Util.loading(false)
+        return
+      }
+
       const info: any = result['info']
       setResultText('kata', info['kata'])
       setResultText('rui', info['rui'])
