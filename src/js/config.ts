@@ -1,6 +1,6 @@
 export default class Config {
   private static constants: {[index: string]: any} = {
-    'api-base': 'https://api.usappy.com/'
+    'api-base': 'https://api.zaf.jp/'
   }
 
   private static constantsDevelop: {[index: string]: any} = {
