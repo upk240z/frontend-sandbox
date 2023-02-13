@@ -1,6 +1,6 @@
 [build]
-  public = "public/"
-  command = "npm run build"
+  public = "dist/"
+  command = "pnpm run build"
 
 [functions]
   directory = "functions"

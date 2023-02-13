@@ -6,3 +6,7 @@
   width: 400px;
   height: 400px;
 }
+
+div.hoge {
+  @apply border-2 rounded-2xl text-red-600 text-xs
+}
