@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && copy _redirects dist",
+    "deploy": "netlify deploy --prod",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@netlify/functions": "^1.4.0",
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.2",
     "autoprefixer": "^10.4.13",
